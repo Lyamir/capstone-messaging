@@ -1,0 +1,30 @@
+{
+  "name": "capstone-messaging",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.4",
+    "hbs": "^4.1.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.2",
+    "nodemon": "^2.0.13",
+    "path": "^0.12.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lyamir/capstone-messaging.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lyamir/capstone-messaging/issues"
+  },
+  "homepage": "https://github.com/Lyamir/capstone-messaging#readme"
+}
