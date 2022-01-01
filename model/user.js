@@ -6,19 +6,19 @@ const User = function(username, password){
 }
 
 User.register = (newUser, result) => {
-  db.query("INSERT INTO users SET ?", [newUser.username, newUser.password], (err, result) => {
+  db.query("INSERT INTO users SET ?", [newUser.username, newUser.password], (err, res) => {
     if(err){
       console.log("error: ", err)
       result(err, null)
       return
     }
-    result(null, {...newUsername})
+    result(null, {...newUser})
   })
 }
 
 User.login = (user, result) => {
-  db.query("SELECT * FROM users WHERE username=? AND password=? LIMIT 1", 
-    [user.username, user.password], (err, res) => {
+  db.query("SELECT * FROM users WHERE username = ? AND password = ?", 
+    [user[0], user[1]], (err, res) => {
     if (err) {
       console.log("error: ", err)
       result(null, err)
@@ -28,3 +28,5 @@ User.login = (user, result) => {
     result(null, res)
   })
 }
+
+module.exports = User
