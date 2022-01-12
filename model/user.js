@@ -29,4 +29,16 @@ User.login = (user, result) => {
   })
 }
 
+User.getUser = (username, result) => {
+  db.query("SELECT * FROM users WHERE username = ? LIMIT 1", username, (err, res) => {
+    if (err) {
+      console.log("error: ", err)
+      result(null, err)
+      return
+    }
+
+    result(null, res)
+  })
+}
+
 module.exports = User

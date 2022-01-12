@@ -9,8 +9,33 @@ const routerFunctions = {
     else {
       Email.getInbox(username, (err, data) => {
         res.render('index', {
+          username: req.cookies.user,
           mail: data
         })
+      })
+    }
+  },
+
+  sentbox: (req, res) => {
+    const username = req.cookies.user
+    if(req.cookies.user == null)
+      res.redirect('/login')
+    else {
+      Email.getSent(username, (err, data) => {
+        res.render('sentbox', {
+          username: req.cookies.user,
+          mail: data
+        })
+      })
+    }
+  },
+
+  getSend: (req, res) => {
+    if(req.cookies.user == null)
+      res.redirect('/login')
+    else {
+      res.render('create', {
+        username: req.cookies.user
       })
     }
   },
@@ -29,13 +54,21 @@ const routerFunctions = {
       datetime: new Date()
     })
 
-    Email.send(newEmail, (err, data) => {
+    User.getUser(req.cookies.user, (err, userData) => {
       if (err)
-      res.sendStatus(500).send({
-        message: err.message || "An Error Occurred"
-      })
+        res.render('create', {
+          message: err
+        })
       else {
-        res.redirect('/inbox')
+        Email.send(newEmail, (err, emailData) => {
+          if (err)
+          res.render('create', {
+            message: err
+          })
+          else {
+            res.redirect('/inbox')
+          }
+        })
       }
     })
   }

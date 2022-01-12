@@ -32,6 +32,19 @@ const routerFunctions = {
       res.render('login')
   },
 
+  
+  getRegister: (req, res) => {
+    if(req.cookie != null)
+      res.redirect('/')
+    else
+      res.render('register')
+  },
+
+  logout: (req, res) => {
+    res.clearCookie("user")
+    res.redirect('/login')
+  },
+
   postLogin: (req, res) => {
     console.log(req.body.username)
     console.log(req.body.password)
