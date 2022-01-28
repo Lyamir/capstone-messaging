@@ -2,7 +2,7 @@ const User = require('../model/user')
 const Email = require('../model/email')
 
 const routerFunctions = {
-  register: (req, res) => {
+  postRegister: (req, res) => {
     if (!req.body){
       res.sendStatus(400).send({
         message: "Content cannot be empty"
@@ -20,7 +20,7 @@ const routerFunctions = {
         message: err.message || "An Error Occurred"
       })
       else {
-        res.send(data)
+        res.redirect('/login')
       }
     })
   },
