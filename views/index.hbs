@@ -16,7 +16,9 @@
     {{#each mail}}
       <div id="mail-{{id}}" style="border: solid 2px; padding: 10px; width: 100%;">
           {{sender}} {{datetime}} <br>
-          {{message}}
+          <div>
+            {{message}}
+          </div>
       </div>
           <br>
     {{/each}}
