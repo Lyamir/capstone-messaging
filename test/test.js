@@ -3,7 +3,7 @@ const firefox = require("selenium-webdriver/firefox");
 const assert = require("assert");
 const should = require("chai").should();
 
-let address = "http://localhost:8010";
+let address = "http://localhost:3001";
 
 // let post = {
 //     title:"Integration Testing",
@@ -18,19 +18,18 @@ let address = "http://localhost:8010";
 //     comment: "Comment testing"
 // }
 
-// describe("Unit Tests", async function(){
-//     //Tests get functionality of the posts displayed in the homepage
-//     it("Homepage should GET all posts", async function(){
-//         let options = new firefox.Options();
-//         options.addArguments("-headless");
-//         let driver = await new Builder().forBrowser("firefox").setFirefoxOptions(options).build();
-//         await driver.get(address);
+describe("Unit Tests", async function(){
+    //Tests login functionality
+    it("Should successfully login", async function(){
+        let options = new firefox.Options();
+        options.addArguments("-headless");
+        let driver = await new Builder().forBrowser("firefox").setFirefoxOptions(options).build();
+        await driver.get(address);
 
-//         let allPosts = await driver.findElements(By.className("postLink"));
-//         allPosts.should.not.be.empty;
+        
 
-//         await driver.quit();
-//     });
+        await driver.quit();
+    });
 
 //     //Tests view functionality of a post
 //     it("It should display a page", async function(){
@@ -158,7 +157,7 @@ let address = "http://localhost:8010";
 
 //         await driver.quit();
 //     });
-// });
+});
 
 // describe("Integration Testing", async function(){
 //     it("It should test the functionality of Post (Part 1 of Integration Testing)", async function(){
