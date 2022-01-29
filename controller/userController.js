@@ -56,8 +56,13 @@ const routerFunctions = {
 
     User.login([req.body.username, req.body.password], (err, data) => {
       console.log(data)
-      res.cookie('user', data[0].username)
-      if (data){
+      if(!data.length){
+        res.render('login', {
+          message: "Invalid Login"
+        })
+      }
+      if (data.length){
+        res.cookie('user', data[0].username)
         res.redirect('/inbox')
       }
     })
