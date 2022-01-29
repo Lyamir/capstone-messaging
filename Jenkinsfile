@@ -87,7 +87,7 @@ pipeline{
                 //Finished
                 echo ""
                 echo "------------------------------------------------------------"
-                echo "Deployed here: http://$PROD_IP_ADD:\$CONTAINER_PORT"
+                echo "Deployed here: http://$PROD_IP_ADD:$CONTAINER_PORT"
 
 
             }
