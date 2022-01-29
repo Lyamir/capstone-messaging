@@ -3,6 +3,7 @@ const app = express()
 const router = express.Router()
 const user = require('../controller/userController')
 const email = require('../controller/emailController')
+const admin = require('../controller/adminController')
 
 
 router.get('/', email.index)
@@ -15,5 +16,6 @@ router.post('/register', user.postRegister)
 router.get('/login', user.getLogin)
 router.post('/login', user.postLogin)
 router.get('/logout', user.logout)
+router.get('/reset-data', admin.resetData)
 
 module.exports = router
