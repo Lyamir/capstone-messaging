@@ -6,7 +6,7 @@ pipeline{
         IMAGE = 'capstone_messaging'
         TAG = '1.0'
         DEPLOYED_CONTAINER = 'containerized_messaging'
-        PROD_IP_ADD = '192.168.56.103'
+        PROD_IP_ADD = '192.168.56.102'
         CONTAINER_IP = '172.18.0.4'
         CONTAINER_PORT = '8010'
         APP_PORT= '3001'
@@ -80,7 +80,7 @@ pipeline{
                 sh '''
                     [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
                     ssh-keyscan -t rsa,dsa \$PROD_IP_ADD >> ~/.ssh/known_hosts
-                    ssh -tt caikit@\$PROD_IP_ADD 'docker stop containerized_messaging; docker rm containerized_messaging; docker load < /home/caikit/ftp/files/messaging.tar; docker run -d -p 8010:3001 --restart unless-stopped --net mynetwork --ip 172.18.0.4 --name containerized_messaging localhost:8084/capstone_messaging:1.0; docker system prune -f'
+                    ssh -tt caikit@192.168.56.102 'docker stop containerized_messaging; docker rm containerized_messaging; docker load < /home/caikit/ftp/files/messaging.tar; docker run -d -p 8010:3001 --restart unless-stopped --net mynetwork --ip 172.18.0.4 --name containerized_messaging localhost:8084/capstone_messaging:1.0; docker system prune -f'
                 '''
                 }
 
