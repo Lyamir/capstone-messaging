@@ -6,7 +6,7 @@ pipeline{
         IMAGE = 'capstone_messaging'
         TAG = '1.0'
         DEPLOYED_CONTAINER = 'containerized_messaging'
-        PROD_IP_ADD = '192.168.56.102'
+        PROD_IP_ADD = '192.168.56.103'
         CONTAINER_IP = '172.18.0.4'
         CONTAINER_PORT = '8010'
         APP_PORT= '3001'
