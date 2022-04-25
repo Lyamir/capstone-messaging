@@ -80,7 +80,7 @@ pipeline{
                 sh '''
                     [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
                     ssh-keyscan -t rsa,dsa \$PROD_IP_ADD >> ~/.ssh/known_hosts
-                    ssh -tt caikit@\$PROD_IP_ADD 'docker stop containerized_messaging; docker rm containerized_messaging; docker load < /home/caikit/ftp/files/messaging.tar; docker run -d -p 8010:3001 --restart unless-stopped --net mynetwork --ip 172.18.0.4 --name containerized_messaging localhost:8084/capstone_messaging:1.0; docker system prune -af'
+                    ssh -tt caikit@\$PROD_IP_ADD 'if [ $(docker ps -a -f name=containerized_messaging | grep -o containerized_messaging) ]; then docker stop containerized_messaging; docker rm containerized_messaging; fi; docker load < /home/caikit/ftp/files/messaging.tar; docker run -d -p 8010:3001 --restart unless-stopped --net mynetwork --ip 172.18.0.4 --name containerized_messaging localhost:8084/capstone_messaging:1.0; docker system prune -af'
                 '''
                 }
 
