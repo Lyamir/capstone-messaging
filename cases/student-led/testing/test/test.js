@@ -14,7 +14,7 @@ function makeid(length) {
    return result;
 }
 
-let address = "http://localhost:3001";
+let address = "http://localhost:8010";
 
 let user1 = {
     username:"user1",
@@ -162,7 +162,6 @@ describe("Integration Testing", async function(){
         let driver = await new Builder().forBrowser("firefox").setFirefoxOptions(options).build();
         await driver.get(address);
 
-        console.log("1");
         //Registers another random user
         await driver.findElement(By.xpath("/html/body/div/form/a")).click();
         
@@ -171,7 +170,6 @@ describe("Integration Testing", async function(){
         await driver.findElement(By.xpath("/html/body/div/form/button")).click();
 
         await driver.get(address);
-        console.log("2");
         //Login as the random user
         await driver.findElement(By.xpath("/html/body/div/form/input[1]")).sendKeys(testuser2.username);
         await driver.findElement(By.xpath("/html/body/div/form/input[2]")).sendKeys(testuser2.password);
@@ -182,7 +180,6 @@ describe("Integration Testing", async function(){
         displayname.should.not.be.empty;
         
         await driver.get(address);
-        console.log("3");
         //Send an email
         await driver.findElement(By.xpath("/html/body/header/a[1]")).click();
 
@@ -197,14 +194,12 @@ describe("Integration Testing", async function(){
         testmessage.should.not.be.empty;
 
         await driver.get(address+"/sentbox");
-        console.log("4");
         //Display the sent email in the user's sentbox
         let testsentbox = await driver.findElements(By.xpath("//*[contains(text(), \""+testemail2.message+"\")]"));
 
         testsentbox.should.not.be.empty;
 
         await driver.get(address);
-        console.log("5");
         //Logout, login as user1, and send an email to random user
         await driver.findElement(By.xpath("/html/body/header/a[3]")).click();
 
@@ -221,7 +216,6 @@ describe("Integration Testing", async function(){
         await driver.findElement(By.xpath("/html/body/header/a[3]")).click();
 
         await driver.get(address);
-        console.log("6");
         //Login as random user and check inbox
         await driver.findElement(By.xpath("/html/body/div/form/input[1]")).sendKeys(testuser2.username);
         await driver.findElement(By.xpath("/html/body/div/form/input[2]")).sendKeys(testuser2.password);
@@ -230,7 +224,6 @@ describe("Integration Testing", async function(){
         let testinboxmessage = await driver.findElements(By.xpath("//*[contains(text(), \""+testemail3.message+"\")]"));
 
         testinboxmessage.should.not.be.empty;
-        console.log("7");
         await driver.quit();
     });
 });
