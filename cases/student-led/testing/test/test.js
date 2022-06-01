@@ -47,23 +47,8 @@ let testemail3 = {
 }
 
 describe("Unit Tests", async function(){
-    //Tests login functionality
-    it("Should successfully login", async function(){
-        let options = new firefox.Options();
-        options.addArguments("-headless");
-        let driver = await new Builder().forBrowser("firefox").setFirefoxOptions(options).build();
-        await driver.get(address);
-
-        await driver.findElement(By.xpath("/html/body/div/form/input[1]")).sendKeys(user1.username);
-        await driver.findElement(By.xpath("/html/body/div/form/input[2]")).sendKeys(user1.password);
-        await driver.findElement(By.xpath("/html/body/div/form/button")).click();
-
-        let displayname = await driver.findElements(By.xpath("//*[contains(text(), \""+user1.username+"\")]"));
-
-        displayname.should.not.be.empty;
-
-        await driver.quit();
-    });
+    //TODO: Tests login functionality
+    
 
     //Tests logout functionality
     it("It logout successfully", async function(){
@@ -111,8 +96,31 @@ describe("Unit Tests", async function(){
         await driver.quit();
     });
 
-    //TODO: Tests send email functionality
-    
+    //Tests send email functionality
+    it("It should send an email", async function(){
+        let options = new firefox.Options();
+        options.addArguments("-headless");
+        let driver = await new Builder().forBrowser("firefox").setFirefoxOptions(options).build();
+        await driver.get(address);
+
+        await driver.findElement(By.xpath("/html/body/div/form/input[1]")).sendKeys(testuser.username);
+        await driver.findElement(By.xpath("/html/body/div/form/input[2]")).sendKeys(testuser.password);
+        await driver.findElement(By.xpath("/html/body/div/form/button")).click();
+        
+        await driver.findElement(By.xpath("/html/body/header/a[1]")).click();
+        
+        await driver.findElement(By.xpath("/html/body/form/input")).sendKeys(testemail.recipient);
+        await driver.findElement(By.xpath("/html/body/form/textarea")).sendKeys(testemail.message);
+        await driver.findElement(By.xpath("/html/body/form/button")).click();
+
+        await driver.get(address+"/sentbox");
+
+        let testmessage = await driver.findElements(By.xpath("//*[contains(text(), \""+testemail.message+"\")]"));
+
+        testmessage.should.not.be.empty;
+
+        await driver.quit();
+    });
 
     //Tests inbox functionality
     it("It should display the inbox", async function(){
@@ -194,12 +202,14 @@ describe("Integration Testing", async function(){
         testmessage.should.not.be.empty;
 
         await driver.get(address+"/sentbox");
+        
         //Display the sent email in the user's sentbox
         let testsentbox = await driver.findElements(By.xpath("//*[contains(text(), \""+testemail2.message+"\")]"));
 
         testsentbox.should.not.be.empty;
 
         await driver.get(address);
+        
         //Logout, login as user1, and send an email to random user
         await driver.findElement(By.xpath("/html/body/header/a[3]")).click();
 
@@ -216,6 +226,7 @@ describe("Integration Testing", async function(){
         await driver.findElement(By.xpath("/html/body/header/a[3]")).click();
 
         await driver.get(address);
+        
         //Login as random user and check inbox
         await driver.findElement(By.xpath("/html/body/div/form/input[1]")).sendKeys(testuser2.username);
         await driver.findElement(By.xpath("/html/body/div/form/input[2]")).sendKeys(testuser2.password);
